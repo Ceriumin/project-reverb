@@ -3,7 +3,7 @@ import { Text as RNText, TextProps as RNTextProps , StyleSheet} from 'react-nati
 
 export function Text({ children, style, ...props }: RNTextProps) {
     return (
-        <RNText style={styles.text} {...props}>
+        <RNText style={[styles.text, style]} {...props}>
             {children}
         </RNText>
     );
@@ -11,7 +11,7 @@ export function Text({ children, style, ...props }: RNTextProps) {
 
 export function Section({ children, style, ...props }: RNTextProps) {
     return (
-        <RNText style={styles.section} {...props}>
+        <RNText style={[styles.section, style]} {...props}>
             {children}
         </RNText>
     );

@@ -45,6 +45,7 @@ export default function ActionButton({ onPress,
             onPressIn={onPressIn}
             onPressOut={onPressOut}
             style={[{ transform: [{ scale: isElevated ? scale : 1 }] }, style, styles.container]}
+            activeOpacity={isElevated ? 1 : 0.7}
         >
             {children}
         </AnimatedTouchableOpacity>

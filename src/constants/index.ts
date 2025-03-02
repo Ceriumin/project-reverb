@@ -1,1 +1,0 @@
-export { type AuthStackParamList,  type RootStackParamList } from './_types';
