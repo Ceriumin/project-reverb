@@ -2,9 +2,9 @@ import React from 'react';
 import { Login, Onboarding, Register } from '../screens/_index';
 import { createStackNavigator } from '@react-navigation/stack';
 
+const Stack = createStackNavigator();
+
 export default function AuthNavigator() {
-    const Stack = createStackNavigator();
-    
     return (
         <Stack.Navigator>
             <Stack.Screen 
