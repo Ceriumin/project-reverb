@@ -1,11 +1,14 @@
 import React, { useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
+import { darkTheme, lightTheme } from '../constants/theme';
 import AppNavigator from './AppNavigator'; 
+import { useColorScheme } from 'react-native';
 
 //Application entry point
 export default function Navigation() {
 
   const start = new Date().getTime();
+  const scheme = useColorScheme();
   
   useEffect(() => {
     const end = new Date().getTime();
@@ -14,7 +17,7 @@ export default function Navigation() {
   , []);
 
   return (
-    <NavigationContainer>
+    <NavigationContainer theme={scheme === 'dark' ? darkTheme : lightTheme}>
       <AppNavigator />
     </NavigationContainer>
   );
