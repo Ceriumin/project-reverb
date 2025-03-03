@@ -4,25 +4,25 @@ import { Text } from './Typography';
 
 interface InputFieldProps {
     label: string;
-    value: string;
-    onChangeText: (text: string) => void;
-    secureTextEntry?: boolean;
     style?: object;
+    secureTextEntry?: boolean;
+    value?: string;
+    onChangeText?: (text: string) => void;
+    keyboardType?: 'default' | 'number-pad' | 'decimal-pad' | 'numeric' | 'email-address' | 'phone-pad';
 }
-
-//TODO: Finish Implement the InputField component
-export default function InputField({ label, value, onChangeText, secureTextEntry, style }: InputFieldProps) {
-
-    const [number, onChangeNumber] = React.useState('');
-
+export default function InputField({label, style, secureTextEntry, value, onChangeText, keyboardType}: InputFieldProps) {
+    const inputRef = useRef<TextInput>(null);
+    
     return (
         <React.Fragment>
             <TextInput 
-                value={number}
                 placeholder={label}
-                onChangeText={onChangeNumber}
-                secureTextEntry={secureTextEntry}
-                style={[styles.input, style]}     
+                value={value}
+                onChangeText={onChangeText}
+                ref={inputRef}
+                style={[styles.input, style]}   
+                secureTextEntry={secureTextEntry}  
+                keyboardType={keyboardType}
             />
         </React.Fragment>
     );
@@ -35,6 +35,7 @@ const styles = StyleSheet.create({
     },
     input: {
         borderWidth: 1,
+        fontFamily: 'Inter-Tight',
         borderColor: 'grey',
         borderRadius: 5,
         padding: 10,

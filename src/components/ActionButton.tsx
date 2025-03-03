@@ -7,7 +7,7 @@ import {
 
 interface ActionButtonProps {
     onPress: () => void;
-    variant: 'full' | 'outlined';
+    variant: 'full' | 'outlined' | 'text';
     children: React.ReactNode;
     isElevated?: boolean;
     style?: object;
@@ -23,20 +23,28 @@ export default function ActionButton({ onPress,
     const AnimatedTouchableOpacity = Animated.createAnimatedComponent(TouchableOpacity);
     const scale = new Animated.Value(1);
 
-    const onPressOut = () => {
-        Animated.spring(scale, {
-            toValue: 1,
-            friction: 10,
-            useNativeDriver: true,
-        }).start();
+    // Animation for the initial button press
+    const onPressIn = () => {
+        /* Doesn't animate if the button is not elevated,
+        this is by design and makes more sense visually */
+        if(isElevated) {
+            Animated.spring(scale, {
+                toValue: 0.95,
+                friction: 10,
+                useNativeDriver: true,
+            }).start();
+        }
     }
 
-    const onPressIn = () => {
-        Animated.spring(scale, {
-            toValue: 0.95,
-            friction: 10,
-            useNativeDriver: true,
-        }).start();
+    // Return the button to its original state
+    const onPressOut = () => {
+        if(isElevated) { 
+            Animated.spring(scale, {
+                toValue: 1,
+                friction: 10,
+                useNativeDriver: true,
+            }).start();
+        }
     }
     
     return (
@@ -44,7 +52,11 @@ export default function ActionButton({ onPress,
             onPress={onPress}
             onPressIn={onPressIn}
             onPressOut={onPressOut}
-            style={[{ transform: [{ scale: isElevated ? scale : 1 }] }, style, styles.container]}
+            style={[
+                { transform: [{ scale: isElevated ? scale : 1 }] }, 
+                style, 
+                styles.container,
+            ]}
             activeOpacity={isElevated ? 1 : 0.7}
         >
             {children}
@@ -54,6 +66,7 @@ export default function ActionButton({ onPress,
 
 const styles = StyleSheet.create({
     container: {
-        
-    }
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
 });

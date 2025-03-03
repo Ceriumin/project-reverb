@@ -1,5 +1,5 @@
 import React from 'react';
-import { Login, Onboarding, Register } from '../screens/_index';
+import { Login, Onboarding, Register, ForgotPassword } from '../screens/_index';
 import { createStackNavigator } from '@react-navigation/stack';
 
 const Stack = createStackNavigator();
@@ -20,6 +20,11 @@ export default function AuthNavigator() {
             <Stack.Screen 
                 name="Register" 
                 component={Register} 
+                options={{ headerShown: false }}
+            />
+            <Stack.Screen 
+                name="ForgotPassword" 
+                component={ForgotPassword} 
                 options={{ headerShown: false }}
             />
         </Stack.Navigator>

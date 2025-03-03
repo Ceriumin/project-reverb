@@ -1,19 +1,28 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Button, Text, InputField } from '../../components/_index';
 import { View, StyleSheet} from 'react-native';
+import { AuthStackParamList } from '../../constants/types';
+import { useNavigation, NavigationProp } from '@react-navigation/native';
 
 export default function Login() {
+
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+    const navigation = useNavigation<NavigationProp<AuthStackParamList>>();
+
     return (
         <View style={styles.container}>
             <InputField 
                 label='Email'
-                value=''
-                onChangeText={(text) => console.log(text)}
+                value={email}
+                onChangeText={(text) => setEmail(text)}
+                keyboardType='email-address'
             />
             <InputField 
                 label='Password'
-                value=''
-                onChangeText={(text) => console.log(text)}
+                value={password}
+                onChangeText={(text) => setPassword(text)}
                 secureTextEntry
             />
             <Button 
@@ -25,12 +34,18 @@ export default function Login() {
                 <Text style={styles.button_text}>Login</Text>
             </Button>
             <Button
-                onPress={() => console.log('Register')} 
+                onPress={() => navigation.navigate('Register')} 
                 variant='full'
                 isElevated
                 style={styles.button}
             >
                 <Text style={styles.button_text}>Register</Text>
+            </Button>
+            <Button
+                onPress={() => navigation.navigate('ForgotPassword')}
+                variant='text'
+            >
+                <Text style={{color: 'black', marginTop: 15}}>Forgot Password?</Text>
             </Button>
         </View>
     );
