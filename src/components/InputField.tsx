@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { TextInput, StyleSheet } from 'react-native';
 import { Text } from './Typography';
 
@@ -14,14 +14,6 @@ interface InputFieldProps {
 export default function InputField({ label, value, onChangeText, secureTextEntry, style }: InputFieldProps) {
 
     const [number, onChangeNumber] = React.useState('');
-    const [isFocused, setIsFocused] = useState(false);
-    const inputRef = useRef<TextInput>(null);
-
-    const handleContainerPress = () => {
-        if (isFocused && inputRef.current) {
-            inputRef.current.blur();
-        }
-    };
 
     return (
         <React.Fragment>
@@ -30,10 +22,7 @@ export default function InputField({ label, value, onChangeText, secureTextEntry
                 placeholder={label}
                 onChangeText={onChangeNumber}
                 secureTextEntry={secureTextEntry}
-                style={[styles.input, style]}
-                onFocus={() => setIsFocused(true)}
-                onBlur={() => setIsFocused(false)}
-                
+                style={[styles.input, style]}     
             />
         </React.Fragment>
     );
