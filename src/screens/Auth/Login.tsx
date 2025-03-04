@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import { Button, Text, InputField } from '../../components/_index';
-import { View, StyleSheet} from 'react-native';
-import { AuthStackParamList } from '../../constants/types';
+import { View, StyleSheet, Alert} from 'react-native';
+import { AuthStackParamList } from '../../constants/StackParameters';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
 import { useAuth } from '../../hooks/_index';
 
@@ -16,16 +16,17 @@ export default function Login() {
 
     const { signIn } = useAuth();
 
-    const logIn = async () => {
-        try {
-            await signIn(email, password);
-            console.log('User successfully logged in');
-            setUser(email);
-        } catch (error) {
-            console.error('Failed to log in', error);
-            setUser('error');
-        }
-    }
+        const logIn = async () => {
+            try {
+                const { isSignedIn } = await signIn(email, password);
+                if (isSignedIn) {
+                    Alert.alert('Success', 'You have successfully logged in');
+                    setUser('Logged in');
+                }
+            } catch (error) {
+                console.log('Error signing in: ', error);
+            }
+        };
 
     return (
         <View style={styles.container}>
