@@ -3,13 +3,29 @@ import { Button, Text, InputField } from '../../components/_index';
 import { View, StyleSheet} from 'react-native';
 import { AuthStackParamList } from '../../constants/types';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
+import { useAuth } from '../../hooks/_index';
+
 
 export default function Login() {
 
     const [email, setEmail] = useState('');
+    const [user, setUser] = useState('Login');
     const [password, setPassword] = useState('');
 
     const navigation = useNavigation<NavigationProp<AuthStackParamList>>();
+
+    const { signIn } = useAuth();
+
+    const logIn = async () => {
+        try {
+            await signIn(email, password);
+            console.log('User successfully logged in');
+            setUser(email);
+        } catch (error) {
+            console.error('Failed to log in', error);
+            setUser('error');
+        }
+    }
 
     return (
         <View style={styles.container}>
@@ -26,12 +42,12 @@ export default function Login() {
                 secureTextEntry
             />
             <Button 
-                onPress={() => console.log('Login')} 
+                onPress={logIn} 
                 variant='full'
                 isElevated
                 style={styles.button}
             >
-                <Text style={styles.button_text}>Login</Text>
+                <Text style={styles.button_text}>{user}</Text>
             </Button>
             <Button
                 onPress={() => navigation.navigate('Register')} 

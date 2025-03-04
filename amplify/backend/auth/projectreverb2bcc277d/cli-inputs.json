@@ -1,10 +1,10 @@
 {
   "version": "1",
   "cognitoConfig": {
-    "identityPoolName": "projectreverbcc934092_identitypool_cc934092",
+    "identityPoolName": "projectreverb2bcc277d_identitypool_2bcc277d",
     "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "projeccc934092",
-    "userPoolName": "projectreverbcc934092_userpool_cc934092",
+    "resourceNameTruncated": "projec2bcc277d",
+    "userPoolName": "projectreverb2bcc277d_userpool_2bcc277d",
     "autoVerifiedAttributes": [
       "email"
     ],
@@ -20,8 +20,7 @@
     "passwordPolicyMinLength": 8,
     "passwordPolicyCharacters": [],
     "requiredAttributes": [
-      "email",
-      "name"
+      "email"
     ],
     "aliasAttributes": [],
     "userpoolClientGenerateSecret": false,
@@ -32,14 +31,14 @@
     "userpoolClientReadAttributes": [
       "email"
     ],
-    "userpoolClientLambdaRole": "projeccc934092_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "projec2bcc277d_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "cc934092",
-    "resourceName": "projectreverbcc934092",
+    "sharedId": "2bcc277d",
+    "resourceName": "projectreverb2bcc277d",
     "authSelections": "identityPoolAndUserPool",
     "useDefault": "default",
     "usernameAttributes": [
-      "email, phone_number"
+      "email"
     ],
     "triggers": {
       "CustomMessage": [
@@ -48,7 +47,7 @@
     },
     "userPoolGroupList": [],
     "serviceName": "Cognito",
-    "verificationBucketName": "projectreverbcc934092verificationbucket",
+    "verificationBucketName": "projectreverb2bcc277dverificationbucket",
     "usernameCaseSensitive": false,
     "useEnabledMfas": true
   }

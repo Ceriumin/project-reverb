@@ -1,6 +1,5 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useRef } from 'react';
 import { TextInput, StyleSheet } from 'react-native';
-import { Text } from './Typography';
 
 interface InputFieldProps {
     label: string;

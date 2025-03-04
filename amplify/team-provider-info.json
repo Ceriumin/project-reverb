@@ -13,9 +13,6 @@
       "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-projectreverb-dev-3b4f9-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
     },
     "categories": {
-      "auth": {
-        "projectreverbcc934092": {}
-      },
       "function": {
         "projectreverbcc934092CustomMessage": {
           "REDIRECTURL": "projectreverb://",
@@ -23,7 +20,29 @@
           "EMAILMESSAGE": "Click the link below to verify your email",
           "deploymentBucketName": "amplify-projectreverb-dev-3b4f9-deployment",
           "s3Key": "amplify-builds/projectreverbcc934092CustomMessage-3573642f6c614d364f31-build.zip"
+        },
+        "projectreverb3680b63bCustomMessage": {
+          "REDIRECTURL": "projectreverb://",
+          "EMAILSUBJECT": "Verification Link",
+          "EMAILMESSAGE": "Verification Test",
+          "deploymentBucketName": "amplify-projectreverb-dev-3b4f9-deployment",
+          "s3Key": "amplify-builds/projectreverb3680b63bCustomMessage-6d767938716a2f6d2f57-build.zip"
+        },
+        "projectreverb3680b63bPostConfirmation": {
+          "GROUP": "user",
+          "deploymentBucketName": "amplify-projectreverb-dev-3b4f9-deployment",
+          "s3Key": "amplify-builds/projectreverb3680b63bPostConfirmation-7a5964716c2b6f45554a-build.zip"
+        },
+        "projectreverb2bcc277dCustomMessage": {
+          "REDIRECTURL": "projectreverb://auth/confirm",
+          "EMAILSUBJECT": "Email Verification",
+          "EMAILMESSAGE": "Click the link to verify your email",
+          "deploymentBucketName": "amplify-projectreverb-dev-3b4f9-deployment",
+          "s3Key": "amplify-builds/projectreverb2bcc277dCustomMessage-4f766e2b4b3341666232-build.zip"
         }
+      },
+      "auth": {
+        "projectreverb2bcc277d": {}
       }
     }
   }

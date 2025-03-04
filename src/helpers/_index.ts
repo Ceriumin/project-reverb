@@ -2,4 +2,4 @@ export {
     emailValidator, 
     passwordValidator, 
     nameValidator 
-} from './authValidation';
+} from './AuthValidation';

@@ -1,19 +1,51 @@
 import React, {useState} from 'react';
 import { Button, Text, InputField } from '../../components/_index';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Alert } from 'react-native';
+import { useAuth } from '../../hooks/_index';
+//import * as Validation from '../../helpers/AuthValidation';
+import { useNavigation, NavigationProp } from '@react-navigation/native';
+import { AuthStackParamList } from '../../constants/_index';
+
 
 export default function Register() {
+    const navigation = useNavigation<NavigationProp<AuthStackParamList>>();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [name, setName] = useState('');
+    const [isLoading, setIsLoading ] = useState(false);
+
+    const { signUp } = useAuth();
+
+    const handleRegistration = async () => {
+        try { 
+            setIsLoading(true);
+            const { isSignUpComplete, nextStep } = await signUp(
+                email,
+                password,
+            );
+    
+            if (!isSignUpComplete && nextStep === 'CONFIRM_SIGN_UP') {
+                Alert.alert(
+                    'Verification Required',
+                    'Please check your email for a verification code.',
+                    [
+                        {
+                            text: 'OK',
+                            onPress: () => navigation.navigate('ConfirmSignUp', { 
+                                username: email,
+                            })
+                        }
+                    ]
+                );
+            }
+        } catch (err) {
+            Alert.alert('Registration Error', (err as Error).message);
+        } finally {
+            setIsLoading(false);
+        }
+    };
 
     return (
         <View style={styles.container}>
-            <InputField 
-                label='Name'
-                value={name}
-                onChangeText={(text) => setName(text)}
-            />
             <InputField 
                 label='Email'
                 value={email}
@@ -27,12 +59,14 @@ export default function Register() {
                 secureTextEntry
             />
             <Button
-                onPress={() => console.log('Register')} 
+                onPress={handleRegistration} 
                 variant='full'
                 isElevated
                 style={styles.button}
             >
-                <Text style={styles.button_text}>Register</Text>
+                <Text style={styles.button_text}>
+                    {isLoading ? 'Registering...' : 'Register'}
+                </Text>            
             </Button>
         </View>
     );
@@ -44,7 +78,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center'
     },
-
     button: {
         width: '90%',
         borderRadius: 10,
@@ -54,7 +87,6 @@ const styles = StyleSheet.create({
         backgroundColor: 'blue',
         marginTop: 5
     },
-
     button_text: {
         fontSize: 16,
         fontWeight: '600',

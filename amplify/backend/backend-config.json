@@ -1,6 +1,6 @@
 {
   "auth": {
-    "projectreverbcc934092": {
+    "projectreverb2bcc277d": {
       "customAuth": false,
       "dependsOn": [
         {
@@ -9,7 +9,7 @@
             "Name"
           ],
           "category": "function",
-          "resourceName": "projectreverbcc934092CustomMessage",
+          "resourceName": "projectreverb2bcc277dCustomMessage",
           "triggerProvider": "Cognito"
         }
       ],
@@ -23,13 +23,11 @@
           "passwordPolicyMinLength": 8
         },
         "signupAttributes": [
-          "EMAIL",
-          "NAME"
+          "EMAIL"
         ],
         "socialProviders": [],
         "usernameAttributes": [
-          "EMAIL",
-          "PHONE_NUMBER"
+          "EMAIL"
         ],
         "verificationMechanisms": [
           "EMAIL"
@@ -40,6 +38,21 @@
     }
   },
   "function": {
+    "projectreverb2bcc277dCustomMessage": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "projectreverb3680b63bCustomMessage": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "projectreverb3680b63bPostConfirmation": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
     "projectreverbcc934092CustomMessage": {
       "build": true,
       "providerPlugin": "awscloudformation",
@@ -47,6 +60,110 @@
     }
   },
   "parameters": {
+    "AMPLIFY_function_projectreverb2bcc277dCustomMessage_EMAILMESSAGE": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "projectreverb2bcc277dCustomMessage"
+        }
+      ]
+    },
+    "AMPLIFY_function_projectreverb2bcc277dCustomMessage_EMAILSUBJECT": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "projectreverb2bcc277dCustomMessage"
+        }
+      ]
+    },
+    "AMPLIFY_function_projectreverb2bcc277dCustomMessage_REDIRECTURL": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "projectreverb2bcc277dCustomMessage"
+        }
+      ]
+    },
+    "AMPLIFY_function_projectreverb2bcc277dCustomMessage_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "projectreverb2bcc277dCustomMessage"
+        }
+      ]
+    },
+    "AMPLIFY_function_projectreverb2bcc277dCustomMessage_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "projectreverb2bcc277dCustomMessage"
+        }
+      ]
+    },
+    "AMPLIFY_function_projectreverb3680b63bCustomMessage_EMAILMESSAGE": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "projectreverb3680b63bCustomMessage"
+        }
+      ]
+    },
+    "AMPLIFY_function_projectreverb3680b63bCustomMessage_EMAILSUBJECT": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "projectreverb3680b63bCustomMessage"
+        }
+      ]
+    },
+    "AMPLIFY_function_projectreverb3680b63bCustomMessage_REDIRECTURL": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "projectreverb3680b63bCustomMessage"
+        }
+      ]
+    },
+    "AMPLIFY_function_projectreverb3680b63bCustomMessage_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "projectreverb3680b63bCustomMessage"
+        }
+      ]
+    },
+    "AMPLIFY_function_projectreverb3680b63bCustomMessage_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "projectreverb3680b63bCustomMessage"
+        }
+      ]
+    },
+    "AMPLIFY_function_projectreverb3680b63bPostConfirmation_GROUP": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "projectreverb3680b63bPostConfirmation"
+        }
+      ]
+    },
+    "AMPLIFY_function_projectreverb3680b63bPostConfirmation_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "projectreverb3680b63bPostConfirmation"
+        }
+      ]
+    },
+    "AMPLIFY_function_projectreverb3680b63bPostConfirmation_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "projectreverb3680b63bPostConfirmation"
+        }
+      ]
+    },
     "AMPLIFY_function_projectreverbcc934092CustomMessage_EMAILMESSAGE": {
       "usedBy": [
         {
