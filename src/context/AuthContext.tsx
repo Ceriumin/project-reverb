@@ -20,15 +20,12 @@ type AuthContextType = {
     isLoading: boolean;
     user: AuthUser | null;
     error: AuthError | null;
-    signIn: (email: string, password: string) => Promise<{isSignedIn: boolean;nextStep?: string;}>;    
+    signIn: (email: string, password: string) => Promise<{isSignedIn: boolean}>;    
     signOut: () => Promise<void>;
-    signUp: (email: string, password: string) => Promise<{ isSignUpComplete: boolean; nextStep?: string }>;    
-    confirmSignUp: (username: string, code: string, password: string) => Promise<void>;
-    resetPassword: (username: string) => Promise<void>;
-    confirmResetPassword: (username: string, code: string, newPassword: string) => Promise<void>;
+    signUp: (email: string, password: string) => Promise<{ isSignUpComplete: boolean }>;    
+    confirmSignUp: (email: string, code: string) => Promise<void>;
     clearError: () => void;
 }
-
 export const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
@@ -82,7 +79,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             setIsLoading(true);
             setError(null);
             await signIn({ 
-                username: email, 
+                username: email.toLowerCase().trim(), 
                 password ,
                 options: { authFlowType: "USER_PASSWORD_AUTH" }, // This is required for the web client
             });
@@ -105,11 +102,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             setIsLoading(true);
             setError(null);
             const { isSignUpComplete, nextStep } = await signUp({
-                username: email.toLowerCase().trim(), // Normalize the email address
+                username: email.toLowerCase().trim(), 
                 password,
                 options: {
                     userAttributes: {
-                        email,
+                        email: email.toLowerCase().trim()
                     },
                     autoSignIn: false
                 }
@@ -127,20 +124,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         }
     };
 
-    const handleConfirmSignUp = async (username: string, code: string, password: string) => {
+    const handleConfirmSignUp = async (username: string, code: string) => {
         try { 
             setIsLoading(true);
             setError(null);            
             await confirmSignUp({ 
-                username, 
-                confirmationCode: code 
+                username: username.toLowerCase().trim(), 
+                confirmationCode: code,
+
             });
-    
-            try {
-                await handleSignIn(username, password);
-            } catch (signInErr) {
-                console.log('Auto sign-in failed after confirmation:', signInErr);
-            }
+
         } catch (err) {
             console.error('Confirmation error:', err);
             setError({
@@ -180,8 +173,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         signOut: handleSignOut,
         signUp: handleSignUp,
         confirmSignUp: handleConfirmSignUp,
-        resetPassword: (undefined as unknown) as AuthContextType['resetPassword'],
-        confirmResetPassword: (undefined as unknown) as AuthContextType['confirmResetPassword'],
         clearError: () => setError(null),
     };
 

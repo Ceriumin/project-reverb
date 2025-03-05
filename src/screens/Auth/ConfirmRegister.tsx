@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, StyleSheet, Alert } from 'react-native';
 import { Button, Text, InputField } from '../../components/_index';
 import { useAuth } from '../../hooks/_index';
-import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
+import { useNavigation, useRoute, RouteProp, NavigationProp } from '@react-navigation/native';
 import type { AuthStackParamList } from '../../constants/_index';
 
 type ConfirmRegisterRouteProp = RouteProp<AuthStackParamList, 'ConfirmSignUp'>;
@@ -11,9 +11,9 @@ export default function ConfirmSignUp() {
     const [code, setCode] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     
-    const navigation = useNavigation();
+    const navigation = useNavigation<NavigationProp<AuthStackParamList>>();
     const route = useRoute<ConfirmRegisterRouteProp>();
-    const { username, givenName } = route.params as { username: string, givenName: string };
+    const { username } = route.params as { username: string };
     
     const { confirmSignUp } = useAuth();
 
@@ -25,14 +25,14 @@ export default function ConfirmSignUp() {
 
         try {
             setIsLoading(true);
-            await confirmSignUp(username, code, 'password');
+            await confirmSignUp(username, code);
             Alert.alert(
                 'Success', 
-                `Welcome ${givenName}! Your account has been verified successfully`,
+                `Welcome ${username}! Your account has been verified successfully`,
                 [
                     {
                         text: 'OK',
-                        //onPress: () => navigation.navigate('Login')
+                        onPress: () => navigation.navigate('Login')
                     }
                 ]
             );
@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
         height: 50,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'blue',
+        backgroundColor: 'gray',
         marginTop: 5
     },
     buttonText: {

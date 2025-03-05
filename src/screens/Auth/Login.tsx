@@ -1,35 +1,59 @@
 import React, {useState} from 'react';
 import { Button, Text, InputField } from '../../components/_index';
 import { View, StyleSheet, Alert} from 'react-native';
-import { AuthStackParamList } from '../../constants/StackParameters';
+import { RootStackParamList, AuthStackParamList } from '../../constants/StackParameters';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
 import { useAuth } from '../../hooks/_index';
 
 
 export default function Login() {
-
     const [email, setEmail] = useState('');
-    const [user, setUser] = useState('Login');
     const [password, setPassword] = useState('');
+    const navigation = useNavigation<NavigationProp<RootStackParamList & AuthStackParamList>>();
+    
+    const { signIn, isAuthenticated, signOut } = useAuth();
 
-    const navigation = useNavigation<NavigationProp<AuthStackParamList>>();
+    const logIn = async () => {
+        if (isAuthenticated) {
+            Alert.alert(
+                'Already Signed In',
+                'You are already signed in. Would you like to sign out?',
+                [
+                    {
+                        text: 'Cancel',
+                        style: 'cancel'
+                    },
+                    {
+                        text: 'Sign Out',
+                        onPress: async () => {
+                            await signOut?.();
+                        },
+                        style: 'destructive'
+                    }
+                ]
+            );
+            return;
+        }
 
-    const { signIn } = useAuth();
-
-        const logIn = async () => {
-            try {
-                const { isSignedIn } = await signIn(email, password);
-                if (isSignedIn) {
-                    Alert.alert('Success', 'You have successfully logged in');
-                    setUser('Logged in');
-                }
-            } catch (error) {
-                console.log('Error signing in: ', error);
+        try {
+            const { isSignedIn } = await signIn(email, password);
+            if (isSignedIn) {
+                Alert.alert('Success', 'You have successfully signed in.');
+                navigation.reset({
+                    index: 0,
+                    routes: [{ name: 'Main' }],
+                });
             }
-        };
-
+        } catch (error) {
+            Alert.alert('Error', 'Unable to sign in. Please try again.');
+            console.error('Error signing in:', error);
+        }
+    };
     return (
         <View style={styles.container}>
+            <Text style={styles.title}>
+                Log In
+            </Text>
             <InputField 
                 label='Email'
                 value={email}
@@ -48,7 +72,7 @@ export default function Login() {
                 isElevated
                 style={styles.button}
             >
-                <Text style={styles.button_text}>{user}</Text>
+                <Text style={styles.button_text}>Log In</Text>
             </Button>
             <Button
                 onPress={() => navigation.navigate('Register')} 
@@ -81,7 +105,7 @@ const styles = StyleSheet.create({
         height: 50,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'blue',
+        backgroundColor: 'gray',
         marginTop: 5
     },
 
@@ -89,5 +113,12 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: '600',
         color: 'white'
-    }
+    },
+
+    title: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        marginBottom: 20,
+        textAlign: 'center'
+    },
 });

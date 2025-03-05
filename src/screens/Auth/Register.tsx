@@ -18,12 +18,12 @@ export default function Register() {
     const handleRegistration = async () => {
         try { 
             setIsLoading(true);
-            const { isSignUpComplete, nextStep } = await signUp(
+            const { isSignUpComplete } = await signUp(
                 email,
                 password,
             );
     
-            if (!isSignUpComplete && nextStep === 'CONFIRM_SIGN_UP') {
+            if (!isSignUpComplete) {
                 Alert.alert(
                     'Verification Required',
                     'Please check your email for a verification code.',
@@ -31,7 +31,7 @@ export default function Register() {
                         {
                             text: 'OK',
                             onPress: () => navigation.navigate('ConfirmSignUp', { 
-                                username: email,
+                                username: email.toLowerCase().trim(),
                             })
                         }
                     ]
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
         height: 50,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'blue',
+        backgroundColor: 'gray',
         marginTop: 5
     },
     button_text: {
