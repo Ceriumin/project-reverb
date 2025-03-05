@@ -14,6 +14,7 @@ type AuthError = {
     message: string;
 }
 
+// Type definition for the AuthContext for the AuthProvider
 type AuthContextType = {
     isAuthenticated: boolean;
     isLoading: boolean;
@@ -32,16 +33,18 @@ export const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
 
+    // All the states for Authentication are handled here
     const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [user, setUser] = useState<AuthUser | null>(null);
     const [error, setError] = useState<AuthError | null>(null);
 
-    useEffect(() => {
+    useEffect(() => { // This effect runs only once when the component mounts to check the authentication state
         checkAuthState();
         setupAuthListener();
       }, []);
 
+    // This function listens to the auth event and updates the state accordingly
     const setupAuthListener = () => {
         Hub.listen('auth', ({ payload: { event } }) => {
           switch (event) {
@@ -81,7 +84,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             await signIn({ 
                 username: email, 
                 password ,
-                options: { authFlowType: "USER_PASSWORD_AUTH" },
+                options: { authFlowType: "USER_PASSWORD_AUTH" }, // This is required for the web client
             });
             setIsAuthenticated(true);
             return { isSignedIn: true };
@@ -102,7 +105,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             setIsLoading(true);
             setError(null);
             const { isSignUpComplete, nextStep } = await signUp({
-                username: email.toLowerCase().trim(),
+                username: email.toLowerCase().trim(), // Normalize the email address
                 password,
                 options: {
                     userAttributes: {
@@ -134,7 +137,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             });
     
             try {
-                console.log('Verification successful, attempting sign in');
                 await handleSignIn(username, password);
             } catch (signInErr) {
                 console.log('Auto sign-in failed after confirmation:', signInErr);

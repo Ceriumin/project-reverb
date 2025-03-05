@@ -1,9 +1,12 @@
-type AuthError = { 
+import { AuthUser } from 'aws-amplify/auth';
+
+export type AuthError = { 
     code?: string;
     message: string;
 }
 
-type AuthContextType = {
+// Type definition for the AuthContext is stored here for the AuthProvider to make it cleaner
+export type AuthContextType = {
     isAuthenticated: boolean;
     isLoading: boolean;
     user: AuthUser | null;
