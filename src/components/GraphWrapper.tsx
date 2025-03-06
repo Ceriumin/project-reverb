@@ -28,19 +28,18 @@ export default function GraphWrapper({ title, data, color, type }: Props) {
 
 export const styles = StyleSheet.create({
     container: {
-        //padding: 10,
+        padding: 15,
         backgroundColor: 'lightgrey',
         borderRadius: 10,
     },
 
     text_container: {
-        paddingHorizontal: 12, //Very slight padding to line up with the graph
+        paddingHorizontal: 15, //Very slight padding to line up with the graph
         marginBottom: 15,
     },
 
     title: {
-        fontSize: 20,
-        fontWeight: 'bold',
+        fontSize: 14,
     },
 
     value: {
