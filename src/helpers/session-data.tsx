@@ -20,8 +20,8 @@ export const processPlaytimeData = (): ProcessedData[] => {
         const totalMinutes = entry.sessions.reduce((acc, session) => {
             const startTime = new Date(session.start);
             const endTime = new Date(session.end);
-            const diffInMinutes = (endTime.getTime() - startTime.getTime()) / (1000 * 60);
-            return acc + diffInMinutes;
+            const difference = (endTime.getTime() - startTime.getTime());
+            return acc + difference;
         }, 0);
 
         return {

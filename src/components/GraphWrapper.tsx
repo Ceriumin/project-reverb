@@ -20,7 +20,6 @@ export default function GraphWrapper({ title, data, color, type }: Props) {
                         <Text style={styles.value}>0</Text>
                     </View>
                     {type === 'bar' ? <BarGraph data={data} color={color || '#000000'} /> : <LineGraph data={data} color={color || '#000000'} />}
-                    
                 </View>
             </View>
     );
@@ -28,22 +27,23 @@ export default function GraphWrapper({ title, data, color, type }: Props) {
 
 export const styles = StyleSheet.create({
     container: {
-        padding: 15,
         backgroundColor: 'lightgrey',
         borderRadius: 10,
+        padding: 10,
+        paddingVertical: 15,
     },
 
     text_container: {
-        paddingHorizontal: 15, //Very slight padding to line up with the graph
         marginBottom: 15,
+        paddingLeft: 5,
     },
 
     title: {
-        fontSize: 14,
+        fontSize: 12,
     },
 
     value: {
-        fontSize: 16,
+        fontSize: 18,
         fontWeight: 'bold',
     }
 });
