@@ -1,7 +1,5 @@
 export const formatTime = (time: number): string => {
-    if (time < 60000) {
-        return `${time} s`;
-    } else if (time < 3600000) {
+    if (time < 3600000) {
         const minutes = Math.floor(time / 60000);
         return `${minutes}m`;
     } else if (time < 86400000) {
