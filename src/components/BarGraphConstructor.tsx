@@ -14,10 +14,11 @@ interface Props {
     color: string;
 }
 
-const ASPECT_RATIO = 9 / 16;
+const ASPECT_RATIO = 9 / 20;
 const PADDING = 20;
 const horizontalPadding = 10;
-const MAX_DAYS = 5;
+const MAX_DAYS =  7;
+const REPLACE = true;
 
 export default function BarGraph({ data, color }: Props) {
     const [width, setWidth] = React.useState(0);
@@ -37,14 +38,16 @@ export default function BarGraph({ data, color }: Props) {
         );
     }
     
-    const limit = data.slice(-MAX_DAYS);
-    const values = limit.map(d => d.totalMinutes);
-    const nonZeroValues = values.filter(v => v > 0); 
+    const limit = data.slice(-MAX_DAYS); // Limit the data so that it only shows the last x days
+    const values = limit.map(d => d.totalMinutes); // Map the totalMinutes to an array
+    const nonZeroValues = values.filter(v => v > 0);  // Filter out the zero values from the array
     
+    // Max value for the y-axis so it fits the graph
     const max = nonZeroValues.length > 0  
         ? Math.max(...nonZeroValues) * 1.125
         : 10; 
 
+    // If the data is less than the max days, it will add padding to the left
     if (data.length < MAX_DAYS) {
         const diff = MAX_DAYS - data.length;
         
@@ -57,7 +60,7 @@ export default function BarGraph({ data, color }: Props) {
             paddingDate.setDate(paddingDate.getDate() - i);
             limit.unshift({ 
                 date: paddingDate.toISOString(), 
-                totalMinutes: 0 
+                totalMinutes: 0
             });
         }
     }
@@ -70,7 +73,7 @@ export default function BarGraph({ data, color }: Props) {
         const sectionWidth = availableWidth / MAX_DAYS;
         
         return limit.map((d, i) => {  
-            if (d.totalMinutes === 0) {
+            if (d.totalMinutes === 0 && REPLACE) {
                 return null;
             }
             
