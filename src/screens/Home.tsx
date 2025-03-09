@@ -10,7 +10,7 @@ export default function HomeScreen() {
 
   return (
     <View style={styles.container}>
-      <GraphWrapper title="Average" data={data} type="bar" color="red" />
+      <GraphWrapper title="Average" data={data} color="red" />
     </View>
   );
 }

@@ -16,7 +16,7 @@ interface Props {
 
 const ASPECT_RATIO = 9 / 16;
 const PADDING = 20;
-const horizontalPadding = 10;
+const EDGE_PADDING = 10;
 const MAX_DAYS = 5;
 
 export default function BarGraph({ data, color }: Props) {
@@ -37,21 +37,26 @@ export default function BarGraph({ data, color }: Props) {
         );
     }
     
-    const limit = data.slice(-MAX_DAYS);
-    const values = limit.map(d => d.totalMinutes);
-    const nonZeroValues = values.filter(v => v > 0); 
+    const limit = data.slice(-MAX_DAYS); // slices the data from most recent to the last x days
+    const values = limit.map(d => d.totalMinutes); 
+    const nonZeroValues = values.filter(v => v > 0); // filters out the zero values
     
+    // Adds padding to the numbers at the top of the graph
     const max = nonZeroValues.length > 0  
         ? Math.max(...nonZeroValues) * 1.125
         : 10; 
 
+    // If the data is less than the max days, it will add padding to the left of the graph,
+    // to make sure the graph reads in correct order
     if (data.length < MAX_DAYS) {
         const diff = MAX_DAYS - data.length;
         
-        const earliestDate = data.length > 0 
+        const earliestDate = data.length > 0 // if there is data, it will use the earliest date in the data
             ? new Date(data[0].date) 
             : new Date();
-            
+        
+        // Loops from the earliest date to the difference between the max days and the data length,
+        // and adds the padding to the left of the graph
         for (let i = diff; i > 0; i--) {
             const paddingDate = new Date(earliestDate);
             paddingDate.setDate(paddingDate.getDate() - i);
@@ -63,12 +68,12 @@ export default function BarGraph({ data, color }: Props) {
     }
 
     const generateBars = () => {
-        const barWidthRatio = 0.2 
-        const EDGE_PADDING = horizontalPadding; 
-        const availableHeight = height - PADDING;
+        const barWidthRatio = 0.2 // Ratio of the bar width to the section width
+        const availableHeight = height - PADDING; 
         const availableWidth = width - (2 * EDGE_PADDING);
         const sectionWidth = availableWidth / MAX_DAYS;
         
+        // Maps the data to the bars, and filters out the zero values
         return limit.map((d, i) => {  
             if (d.totalMinutes === 0) {
                 return null;
@@ -82,45 +87,21 @@ export default function BarGraph({ data, color }: Props) {
             const relativeHeight = (d.totalMinutes / max) * availableHeight;
             
             return (
-                <React.Fragment key={`fragment-${i}`}>
-                    <Rect
-                        key={`bar-${i}`}
-                        x={barX}
-                        y={height - PADDING - relativeHeight}
-                        width={barWidth}
-                        height={relativeHeight}
-                        rx={barWidth / 2}
-                        ry={barWidth / 2} 
-                        fill={color}
-                    />
-                    <Text
-                        key={`value-${i}`}
-                        x={sectionCenter}
-                        y={height - PADDING - relativeHeight - 5}
-                        fontSize={10}
-                        fill="black"
-                        textAnchor="middle"
-                    >
-                        {formatTime(d.totalMinutes)}
-                    </Text>
-                    <Text
-                        key={`date-${i}`}
-                        x={sectionCenter}
-                        y={height - 5}
-                        fontSize={10}
-                        fill="black"
-                        textAnchor="middle"
-                    >
-                        {new Date(d.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
-                    </Text>
-                </React.Fragment>
+                <Rect
+                    key={`bar-${i}`}
+                    x={barX}
+                    y={height - PADDING - relativeHeight}
+                    width={barWidth}
+                    height={relativeHeight}
+                    rx={barWidth / 2}
+                    ry={barWidth / 2} 
+                    fill={color}
+                />
             );
         }).filter(Boolean); 
     };
     
-    const generateLines = () => {
-        const EDGE_PADDING = horizontalPadding; 
-        
+    const generateLines = () => {        
         const separatorLines = [];
         
         const availableWidth = width - (2 * EDGE_PADDING);
@@ -147,7 +128,57 @@ export default function BarGraph({ data, color }: Props) {
     };
 
     const generateLabels = () => {
-
+        const availableWidth = width - (2 * EDGE_PADDING);
+        const availableHeight = height - PADDING;
+        const sectionWidth = availableWidth / MAX_DAYS;
+        
+        return limit.map((d, i) => {
+            const sectionStart = EDGE_PADDING + (i * sectionWidth);
+            const sectionCenter = sectionStart + (sectionWidth / 2);
+            
+            // Skip value labels for zero values
+            if (d.totalMinutes === 0) {
+                return (
+                    <Text
+                        key={`date-${i}`}
+                        x={sectionCenter}
+                        y={height - 5}
+                        fontSize={10}
+                        fill="black"
+                        textAnchor="middle"
+                    >
+                        {new Date(d.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                    </Text>
+                );
+            }
+            
+            const relativeHeight = (d.totalMinutes / max) * availableHeight;
+            
+            return (
+                <React.Fragment key={`labels-${i}`}>
+                    <Text
+                        key={`value-${i}`}
+                        x={sectionCenter}
+                        y={height - PADDING - relativeHeight - 5}
+                        fontSize={10}
+                        fill="black"
+                        textAnchor="middle"
+                    >
+                        {formatTime(d.totalMinutes)}
+                    </Text>
+                    <Text
+                        key={`date-${i}`}
+                        x={sectionCenter}
+                        y={height - 5}
+                        fontSize={10}
+                        fill="black"
+                        textAnchor="middle"
+                    >
+                        {new Date(d.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                    </Text>
+                </React.Fragment>
+            );
+        });
     }
 
     return (
@@ -160,6 +191,7 @@ export default function BarGraph({ data, color }: Props) {
             <Svg width={width} height={height}>
                 {generateLines()} 
                 {generateBars()}
+                {generateLabels()}
             </Svg>
         </View>
     );
