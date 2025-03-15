@@ -13,7 +13,14 @@ export default function GraphWrapper({ title, data, color }: Props) {
     return (
             <View style={styles.container}>
                 <View style={{ width: '100%' }}>
-                    <BarGraph data={data} color={color || '#000000'} />
+                    <BarGraph 
+                        data={data} color={color || '#000000'} 
+                        verticalPadding={20}
+                        horizontalPadding={10}
+                        aspectRatio={9/20}
+                        replaceValues={true}
+                        maxValues={7}
+                    />
                 </View>
             </View>
     );

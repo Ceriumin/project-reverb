@@ -10,22 +10,30 @@ interface Data {
 
 interface Props {
     data: Data[];
-    x?: object;
     color: string;
+    aspectRatio?: number; // MAKE SURE THIS IS A RATIO
+    verticalPadding?: number;
+    horizontalPadding?: number;
+    labelPadding?: number;
+    replaceValues?: boolean;
+    maxValues?: number;
 }
 
-const ASPECT_RATIO = 9 / 20;
-const PADDING = 20;
-const EDGE_PADDING = 10;
-const MAX_DAYS =  7;
-const REPLACE = true;
-
-export default function BarGraph({ data, color }: Props) {
+export default function BarGraph({ 
+    data, 
+    color,
+    labelPadding = 5,
+    aspectRatio = 9/16,
+    verticalPadding = 0,
+    horizontalPadding = 0,
+    replaceValues = false,
+    maxValues = 10,
+}: Props) {
     const [width, setWidth] = React.useState(0);
-    const height = width * ASPECT_RATIO; 
+    const height = width * aspectRatio; 
 
     // Edge case to give information that no data has been provided
-    if(data.length === 0 || !data) {
+    if(!data || data.length === 0) {
         return (
             <View 
                 style={[styles.container]}
@@ -38,25 +46,56 @@ export default function BarGraph({ data, color }: Props) {
         );
     }
     
-    const limit = data.slice(-MAX_DAYS); // Limit the data so that it only shows the last x days
-    const values = limit.map(d => d.totalMinutes); // Map the totalMinutes to an array
-    const nonZeroValues = values.filter(v => v > 0);  // Filter out the zero values from the array
+    // Sort data by date to ensure chronological order
+    const sortedData = [...data].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()); 
+    
+    // Fill in any missing dates in the sequence
+    const filledData: Data[] = [];
+    if(sortedData.length > 0) {
+        const startDate = new Date(sortedData[0].date);
+        const endDate = new Date(sortedData[sortedData.length - 1].date);
+        const dateMap = new Map(sortedData.map(item => [item.date.split('T')[0], item]));
+        
+        if (!replaceValues) {
+            // Loop through each day in the range and fill gaps
+            const currentDate = new Date(startDate);
+            while(currentDate <= endDate) {
+                const dateStr = currentDate.toISOString().split('T')[0];
+                const existingData = dateMap.get(dateStr);
+                
+                if(existingData) {
+                    filledData.push(existingData);
+                } else {
+                    filledData.push({
+                        date: currentDate.toISOString(),
+                        totalMinutes: 0
+                    });
+                }
+                
+                currentDate.setDate(currentDate.getDate() + 1);
+            }
+        } else {
+            // Else, just use the original data without filling gaps
+            filledData.push(...sortedData);
+        }
+    }
+    const limit = filledData.slice(-maxValues); 
+    const values = limit.map(d => d.totalMinutes);
+    const nonZeroValues = values.filter(v => v > 0);
     
     // Max value for the y-axis so it fits the graph
     const max = nonZeroValues.length > 0  
-        ? Math.max(...nonZeroValues) * 1.125
+        ? Math.max(...nonZeroValues)
         : 10; 
 
     // If the data is less than the max days, it will add padding to the left
-    if (data.length < MAX_DAYS) {
-        const diff = MAX_DAYS - data.length;
+    if (limit.length < maxValues) {
+        const diff = maxValues - limit.length;
         
-        const earliestDate = data.length > 0 // if there is data, it will use the earliest date in the data
-            ? new Date(data[0].date) 
+        const earliestDate = limit.length > 0 
+            ? new Date(limit[0].date) 
             : new Date();
-        
-        // Loops from the earliest date to the difference between the max days and the data length,
-        // and adds the padding to the left of the graph
+            
         for (let i = diff; i > 0; i--) {
             const paddingDate = new Date(earliestDate);
             paddingDate.setDate(paddingDate.getDate() - i);
@@ -68,14 +107,14 @@ export default function BarGraph({ data, color }: Props) {
     }
 
     const generateBars = () => {
-        const barWidthRatio = 0.2 // Ratio of the bar width to the section width
-        const availableHeight = height - PADDING; 
+        const barWidthRatio = 0.2 
+        const EDGE_PADDING = horizontalPadding; 
+        const availableHeight = height - (2 * verticalPadding);
         const availableWidth = width - (2 * EDGE_PADDING);
-        const sectionWidth = availableWidth / MAX_DAYS;
+        const sectionWidth = availableWidth / maxValues;
         
-        // Maps the data to the bars, and filters out the zero values
         return limit.map((d, i) => {  
-            if (d.totalMinutes === 0 && REPLACE) {
+            if (replaceValues && d.totalMinutes === 0) {
                 return null;
             }
             
@@ -87,27 +126,31 @@ export default function BarGraph({ data, color }: Props) {
             const relativeHeight = (d.totalMinutes / max) * availableHeight;
             
             return (
-                <Rect
-                    key={`bar-${i}`}
-                    x={barX}
-                    y={height - PADDING - relativeHeight}
-                    width={barWidth}
-                    height={relativeHeight}
-                    rx={barWidth / 2}
-                    ry={barWidth / 2} 
-                    fill={color}
-                />
+                <React.Fragment key={`fragment-${i}`}>
+                    <Rect
+                        key={`bar-${i}`}
+                        x={barX}
+                        y={height - verticalPadding - relativeHeight}
+                        width={barWidth}
+                        height={relativeHeight}
+                        rx={barWidth / 2}
+                        ry={barWidth / 2} 
+                        fill={color}
+                    />
+                </React.Fragment>
             );
         }).filter(Boolean); 
     };
     
-    const generateLines = () => {        
+    const generateLines = () => {
+        const EDGE_PADDING = horizontalPadding; 
+        
         const separatorLines = [];
         
         const availableWidth = width - (2 * EDGE_PADDING);
-        const sectionWidth = availableWidth / MAX_DAYS;
+        const sectionWidth = availableWidth / maxValues;
         
-        for (let i = 0; i <= MAX_DAYS; i++) {
+        for (let i = 0; i <= maxValues; i++) {
             const lineX = EDGE_PADDING + (i * sectionWidth);
             
             separatorLines.push(
@@ -128,58 +171,47 @@ export default function BarGraph({ data, color }: Props) {
     };
 
     const generateLabels = () => {
-        const availableWidth = width - (2 * EDGE_PADDING);
-        const availableHeight = height - PADDING;
-        const sectionWidth = availableWidth / MAX_DAYS;
+        const availableWidth = width - (2 * horizontalPadding);
+        const sectionWidth = availableWidth / maxValues;
+        const availableHeight = height - (2 * verticalPadding);
         
         return limit.map((d, i) => {
-            const sectionStart = EDGE_PADDING + (i * sectionWidth);
-            const sectionCenter = sectionStart + (sectionWidth / 2);
-            
-            // Skip value labels for zero values
-            if (d.totalMinutes === 0) {
-                return (
-                    <Text
-                        key={`date-${i}`}
-                        x={sectionCenter}
-                        y={height - 5}
-                        fontSize={10}
-                        fill="black"
-                        textAnchor="middle"
-                    >
-                        {new Date(d.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
-                    </Text>
-                );
+            if(replaceValues && d.totalMinutes === 0) {
+                return null;
             }
             
+            const sectionStart = horizontalPadding + (i * sectionWidth);
+            const sectionCenter = sectionStart + (sectionWidth / 2);
             const relativeHeight = (d.totalMinutes / max) * availableHeight;
             
             return (
-                <React.Fragment key={`labels-${i}`}>
+                <React.Fragment key={`label-${i}`}>
                     <Text
                         key={`value-${i}`}
                         x={sectionCenter}
-                        y={height - PADDING - relativeHeight - 5}
+                        y={height - verticalPadding - relativeHeight - labelPadding}
                         fontSize={10}
                         fill="black"
                         textAnchor="middle"
+                        alignmentBaseline="middle"
                     >
                         {formatTime(d.totalMinutes)}
                     </Text>
                     <Text
                         key={`date-${i}`}
                         x={sectionCenter}
-                        y={height - 5}
+                        y={height - labelPadding}
                         fontSize={10}
                         fill="black"
                         textAnchor="middle"
+                        alignmentBaseline="middle"
                     >
                         {new Date(d.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
                     </Text>
                 </React.Fragment>
             );
         });
-    }
+    };
 
     return (
         <View
