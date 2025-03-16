@@ -19,6 +19,20 @@ interface Props {
     maxValues?: number;
 }
 
+/**
+ * BarGraph component for visualizing time data across multiple dates
+ * 
+ * @param {Data[]} data - Array of data points with date and totalMinutes properties
+ * @param {string} color - Fill color for the bars
+ * @param {number} labelPadding - Space between bars and labels in pixels (default: 5)
+ * @param {number} aspectRatio - Height to width ratio for the graph (default: 9/16)
+ * @param {number} verticalPadding - Padding at top and bottom in pixels (default: 0)
+ * @param {number} horizontalPadding - Padding at left and right in pixels (default: 0)
+ * @param {boolean} replaceValues - If true, doesn't fill in gaps between dates (default: false)
+ * @param {number} maxValues - Maximum number of values to display (default: 10)
+ * @returns {JSX.Element} Bar graph visualization component
+ */
+
 export default function BarGraph({ 
     data, 
     color,
@@ -31,20 +45,6 @@ export default function BarGraph({
 }: Props) {
     const [width, setWidth] = React.useState(0);
     const height = width * aspectRatio; 
-
-    // Edge case to give information that no data has been provided
-    if(!data || data.length === 0) {
-        return (
-            <View 
-                style={[styles.container]}
-                onLayout={event => {
-                    setWidth(event.nativeEvent.layout.width);
-                }}
-            >
-                <Text>No data available</Text>
-            </View>
-        );
-    }
     
     // Sort data by date to ensure chronological order
     const sortedData = [...data].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()); 
@@ -189,7 +189,7 @@ export default function BarGraph({
                     <Text
                         key={`value-${i}`}
                         x={sectionCenter}
-                        y={height - verticalPadding - relativeHeight - labelPadding}
+                        y={height - verticalPadding - relativeHeight - (labelPadding * 2)}
                         fontSize={10}
                         fill="black"
                         textAnchor="middle"
@@ -218,7 +218,7 @@ export default function BarGraph({
             onLayout={event => {
                 setWidth(event.nativeEvent.layout.width);
             }}
-            style={styles.container}
+            style={limit.length > 0 ? styles.container : styles.container_null}
         >
             <Svg width={width} height={height}>
                 {generateLines()} 
@@ -233,5 +233,11 @@ const styles = StyleSheet.create({
     container: {
         alignSelf: 'center',
         width: '100%',
+    },
+
+    container_null: {
+        alignSelf: 'center',
+        width: '100%',
+        opacity: 0.35
     }
 })
