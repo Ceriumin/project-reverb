@@ -11,5 +11,48 @@
       "StackId": "arn:aws:cloudformation:eu-west-2:864981728637:stack/amplify-projectreverb-dev-13f43/d1088cb0-0501-11f0-8443-02368bffe909",
       "AmplifyAppId": "d3v7rz8mfru8bz"
     }
+  },
+  "auth": {
+    "projectreverbcb26f526": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false,
+      "frontendAuthConfig": {
+        "socialProviders": [],
+        "usernameAttributes": [
+          "EMAIL"
+        ],
+        "signupAttributes": [
+          "EMAIL"
+        ],
+        "passwordProtectionSettings": {
+          "passwordPolicyMinLength": 8,
+          "passwordPolicyCharacters": []
+        },
+        "mfaConfiguration": "OFF",
+        "mfaTypes": [
+          "SMS"
+        ],
+        "verificationMechanisms": [
+          "EMAIL"
+        ]
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-projectreverb-dev-13f43-deployment/amplify-cfn-templates/auth/projectreverbcb26f526-cloudformation-template.json",
+        "logicalId": "authprojectreverbcb26f526"
+      },
+      "lastPushTimeStamp": "2025-03-19T20:45:09.053Z",
+      "output": {
+        "UserPoolId": "eu-west-2_XPS3vY8qy",
+        "AppClientIDWeb": "o3mli09sgd2ldlme94elmc1ln",
+        "AppClientID": "1be72cbbmlggub4g0o63ofeovo",
+        "IdentityPoolId": "eu-west-2:8c9d95bf-8b54-4037-997e-9f25383ae204",
+        "UserPoolArn": "arn:aws:cognito-idp:eu-west-2:864981728637:userpool/eu-west-2_XPS3vY8qy",
+        "IdentityPoolName": "projectreverbcb26f526_identitypool_cb26f526__dev",
+        "UserPoolName": "projectreverbcb26f526_userpool_cb26f526"
+      },
+      "lastPushDirHash": "5q0xY/RDSdPrqQ+DQyn8RoM9WTI="
+    }
   }
 }

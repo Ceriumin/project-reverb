@@ -10,6 +10,11 @@
       "StackName": "amplify-projectreverb-dev-13f43",
       "StackId": "arn:aws:cloudformation:eu-west-2:864981728637:stack/amplify-projectreverb-dev-13f43/d1088cb0-0501-11f0-8443-02368bffe909",
       "AmplifyAppId": "d3v7rz8mfru8bz"
+    },
+    "categories": {
+      "auth": {
+        "projectreverbcb26f526": {}
+      }
     }
   }
 }
