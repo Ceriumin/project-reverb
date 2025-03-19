@@ -4,6 +4,8 @@ import { AuthProvider } from '../context/AuthContext';
 import AppNavigator from './AppNavigator'; 
 import { ActivityIndicator, View } from 'react-native';
 import { useAuth } from '../hooks/useAuth';
+import { darkTheme, lightTheme } from '../constants/theme';
+import { useColorScheme } from 'react-native';
 
 // Loading component to show while checking auth state
 const LoadingScreen = () => (
@@ -15,7 +17,7 @@ const LoadingScreen = () => (
 // Main navigation component with auth provider
 export default function Navigation() {
   const start = new Date().getTime();
-  
+
   useEffect(() => {
     const end = new Date().getTime();
     console.log(`Navigation rendered in ${end - start}ms`);
@@ -31,13 +33,14 @@ export default function Navigation() {
 // Inner component that uses auth context
 function NavigationContent() {
   const { isLoading } = useAuth();
+  const scheme = useColorScheme();
 
   if (isLoading) {
     return <LoadingScreen />;
   }
 
   return (
-    <NavigationContainer>
+    <NavigationContainer theme={scheme === 'dark' ? darkTheme : lightTheme}>
       <AppNavigator />
     </NavigationContainer>
   );

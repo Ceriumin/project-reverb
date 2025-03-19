@@ -1,13 +1,21 @@
-/**
- * @format
- */
-
-import React from 'react';
-import ReactTestRenderer from 'react-test-renderer';
+import { render } from '@testing-library/react';
+import '@testing-library/jest-dom';
 import App from '../src/navigation/_index';
 
-test('renders correctly', async () => {
-  await ReactTestRenderer.act(() => {
-    ReactTestRenderer.create(<App />);
+jest.mock('../src/constants/theme', () => ({
+  lightTheme: {},
+  darkTheme: {},
+}));
+
+jest.mock('../src/navigation/AppNavigator', () => {
+  return function MockAppNavigator() {
+    return <div data-testid="app-navigator">App Navigator</div>;
+  };
+});
+
+describe('App', () => {
+  test('renders without crashing', () => {
+    const { getByTestId } = render(<App />);
+    expect(getByTestId('app-navigator')).toBeInTheDocument();
   });
 });
