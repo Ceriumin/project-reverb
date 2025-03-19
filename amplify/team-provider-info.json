@@ -1,5 +1,5 @@
 {
-  "providers": {
+  "dev": {
     "awscloudformation": {
       "AuthRoleName": "amplify-projectreverb-dev-13f43-authRole",
       "UnauthRoleArn": "arn:aws:iam::864981728637:role/amplify-projectreverb-dev-13f43-unauthRole",
