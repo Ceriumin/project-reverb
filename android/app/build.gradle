@@ -80,9 +80,6 @@ android {
     namespace "com.projectreverb"
     defaultConfig {
         applicationId "com.projectreverb"
-        manifestPlaceholders = [
-            appAuthRedirectScheme: "projectreverb"
-        ]
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
