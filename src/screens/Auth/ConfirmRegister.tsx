@@ -27,7 +27,7 @@ export default function ConfirmRegisterScreen() {
 
         try {
             setIsLoading(true);
-            await confirmSignUp({ email: username, code });
+            await confirmSignUp(username, code);
             navigation.navigate('Login');
         } catch (err) {
             Alert.alert('Error', (err as Error).message);
