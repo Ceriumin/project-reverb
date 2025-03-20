@@ -1,33 +1,22 @@
 {
   "providers": {
     "awscloudformation": {
-      "AuthRoleName": "amplify-projectreverb-dev-3b4f9-authRole",
-      "UnauthRoleArn": "arn:aws:iam::864981728637:role/amplify-projectreverb-dev-3b4f9-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::864981728637:role/amplify-projectreverb-dev-3b4f9-authRole",
+      "AuthRoleName": "amplify-projectreverb-dev-13f43-authRole",
+      "UnauthRoleArn": "arn:aws:iam::864981728637:role/amplify-projectreverb-dev-13f43-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::864981728637:role/amplify-projectreverb-dev-13f43-authRole",
       "Region": "eu-west-2",
-      "DeploymentBucketName": "amplify-projectreverb-dev-3b4f9-deployment",
-      "UnauthRoleName": "amplify-projectreverb-dev-3b4f9-unauthRole",
-      "StackName": "amplify-projectreverb-dev-3b4f9",
-      "StackId": "arn:aws:cloudformation:eu-west-2:864981728637:stack/amplify-projectreverb-dev-3b4f9/665d4540-f877-11ef-8365-0668eb3921f1",
-      "AmplifyAppId": "dlwqn4z7phuso",
-      "AuthTriggerTemplateURL": "https://s3.amazonaws.com/amplify-projectreverb-dev-3b4f9-deployment/amplify-cfn-templates/auth/auth-trigger-cloudformation-template.json"
+      "DeploymentBucketName": "amplify-projectreverb-dev-13f43-deployment",
+      "UnauthRoleName": "amplify-projectreverb-dev-13f43-unauthRole",
+      "StackName": "amplify-projectreverb-dev-13f43",
+      "StackId": "arn:aws:cloudformation:eu-west-2:864981728637:stack/amplify-projectreverb-dev-13f43/d1088cb0-0501-11f0-8443-02368bffe909",
+      "AmplifyAppId": "d3v7rz8mfru8bz"
     }
   },
   "auth": {
-    "projectreverb2bcc277d": {
+    "projectreverbcb26f526": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
-      "dependsOn": [
-        {
-          "category": "function",
-          "resourceName": "projectreverb2bcc277dCustomMessage",
-          "triggerProvider": "Cognito",
-          "attributes": [
-            "Arn",
-            "Name"
-          ]
-        }
-      ],
+      "dependsOn": [],
       "customAuth": false,
       "frontendAuthConfig": {
         "socialProviders": [],
@@ -50,111 +39,20 @@
         ]
       },
       "providerMetadata": {
-        "s3TemplateURL": "https://s3.amazonaws.com/amplify-projectreverb-dev-3b4f9-deployment/amplify-cfn-templates/auth/projectreverb2bcc277d-cloudformation-template.json",
-        "logicalId": "authprojectreverb2bcc277d"
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-projectreverb-dev-13f43-deployment/amplify-cfn-templates/auth/projectreverbcb26f526-cloudformation-template.json",
+        "logicalId": "authprojectreverbcb26f526"
       },
-      "lastPushTimeStamp": "2025-03-04T12:22:49.240Z",
+      "lastPushTimeStamp": "2025-03-19T20:45:09.053Z",
       "output": {
-        "UserPoolId": "eu-west-2_r1anlUSr8",
-        "AppClientIDWeb": "12eicco83o0lsr9foe1792s1g8",
-        "AppClientID": "4o2f7ikfvsnm1u0oig3rgilg1n",
-        "IdentityPoolId": "eu-west-2:13e710db-6b9c-4829-a5eb-24d16837e307",
-        "UserPoolArn": "arn:aws:cognito-idp:eu-west-2:864981728637:userpool/eu-west-2_r1anlUSr8",
-        "IdentityPoolName": "projectreverb2bcc277d_identitypool_2bcc277d__dev",
-        "UserPoolName": "projectreverb2bcc277d_userpool_2bcc277d"
+        "UserPoolId": "eu-west-2_XPS3vY8qy",
+        "AppClientIDWeb": "o3mli09sgd2ldlme94elmc1ln",
+        "AppClientID": "1be72cbbmlggub4g0o63ofeovo",
+        "IdentityPoolId": "eu-west-2:8c9d95bf-8b54-4037-997e-9f25383ae204",
+        "UserPoolArn": "arn:aws:cognito-idp:eu-west-2:864981728637:userpool/eu-west-2_XPS3vY8qy",
+        "IdentityPoolName": "projectreverbcb26f526_identitypool_cb26f526__dev",
+        "UserPoolName": "projectreverbcb26f526_userpool_cb26f526"
       },
-      "lastPushDirHash": "ZHTEbhojAmaWkgqo0iPBwdH2mxs="
-    }
-  },
-  "function": {
-    "projectreverb3680b63bCustomMessage": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda",
-      "output": {
-        "LambdaExecutionRoleArn": "arn:aws:iam::864981728637:role/projectreverb3680b63bCustomMessage-dev",
-        "Region": "eu-west-2",
-        "Arn": "arn:aws:lambda:eu-west-2:864981728637:function:projectreverb3680b63bCustomMessage-dev",
-        "Name": "projectreverb3680b63bCustomMessage-dev",
-        "LambdaExecutionRole": "projectreverb3680b63bCustomMessage-dev"
-      },
-      "lastPushTimeStamp": "2025-03-04T12:22:48.390Z",
-      "providerMetadata": {
-        "s3TemplateURL": "https://s3.amazonaws.com/amplify-projectreverb-dev-3b4f9-deployment/amplify-cfn-templates/function/projectreverb3680b63bCustomMessage-cloudformation-template.json",
-        "logicalId": "functionprojectreverb3680b63bCustomMessage"
-      },
-      "s3Bucket": {
-        "deploymentBucketName": "amplify-projectreverb-dev-3b4f9-deployment",
-        "s3Key": "amplify-builds/projectreverb3680b63bCustomMessage-6d767938716a2f6d2f57-build.zip"
-      }
-    },
-    "projectreverb3680b63bPostConfirmation": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda",
-      "output": {
-        "LambdaExecutionRoleArn": "arn:aws:iam::864981728637:role/projectreverb3680b63bPostConfirmation-dev",
-        "Region": "eu-west-2",
-        "Arn": "arn:aws:lambda:eu-west-2:864981728637:function:projectreverb3680b63bPostConfirmation-dev",
-        "Name": "projectreverb3680b63bPostConfirmation-dev",
-        "LambdaExecutionRole": "projectreverb3680b63bPostConfirmation-dev"
-      },
-      "lastPushTimeStamp": "2025-03-04T12:22:48.391Z",
-      "providerMetadata": {
-        "s3TemplateURL": "https://s3.amazonaws.com/amplify-projectreverb-dev-3b4f9-deployment/amplify-cfn-templates/function/projectreverb3680b63bPostConfirmation-cloudformation-template.json",
-        "logicalId": "functionprojectreverb3680b63bPostConfirmation"
-      },
-      "s3Bucket": {
-        "deploymentBucketName": "amplify-projectreverb-dev-3b4f9-deployment",
-        "s3Key": "amplify-builds/projectreverb3680b63bPostConfirmation-7a5964716c2b6f45554a-build.zip"
-      }
-    },
-    "projectreverbcc934092CustomMessage": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda",
-      "output": {
-        "LambdaExecutionRoleArn": "arn:aws:iam::864981728637:role/projectreverbcc934092CustomMessage-dev",
-        "Region": "eu-west-2",
-        "Arn": "arn:aws:lambda:eu-west-2:864981728637:function:projectreverbcc934092CustomMessage-dev",
-        "Name": "projectreverbcc934092CustomMessage-dev",
-        "LambdaExecutionRole": "projectreverbcc934092CustomMessage-dev"
-      },
-      "lastPushTimeStamp": "2025-03-04T12:22:48.393Z",
-      "providerMetadata": {
-        "s3TemplateURL": "https://s3.amazonaws.com/amplify-projectreverb-dev-3b4f9-deployment/amplify-cfn-templates/function/projectreverbcc934092CustomMessage-cloudformation-template.json",
-        "logicalId": "functionprojectreverbcc934092CustomMessage"
-      },
-      "s3Bucket": {
-        "deploymentBucketName": "amplify-projectreverb-dev-3b4f9-deployment",
-        "s3Key": "amplify-builds/projectreverbcc934092CustomMessage-3573642f6c614d364f31-build.zip"
-      }
-    },
-    "projectreverb2bcc277dCustomMessage": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda",
-      "lastBuildTimeStamp": "2025-03-04T12:22:11.112Z",
-      "lastBuildType": "PROD",
-      "lastPackageTimeStamp": "2025-03-04T12:22:11.274Z",
-      "distZipFilename": "projectreverb2bcc277dCustomMessage-4f766e2b4b3341666232-build.zip",
-      "s3Bucket": {
-        "deploymentBucketName": "amplify-projectreverb-dev-3b4f9-deployment",
-        "s3Key": "amplify-builds/projectreverb2bcc277dCustomMessage-4f766e2b4b3341666232-build.zip"
-      },
-      "providerMetadata": {
-        "s3TemplateURL": "https://s3.amazonaws.com/amplify-projectreverb-dev-3b4f9-deployment/amplify-cfn-templates/function/projectreverb2bcc277dCustomMessage-cloudformation-template.json",
-        "logicalId": "functionprojectreverb2bcc277dCustomMessage"
-      },
-      "lastPushTimeStamp": "2025-03-04T12:22:49.240Z",
-      "output": {
-        "LambdaExecutionRoleArn": "arn:aws:iam::864981728637:role/projectreverb2bcc277dCustomMessage-dev",
-        "Region": "eu-west-2",
-        "Arn": "arn:aws:lambda:eu-west-2:864981728637:function:projectreverb2bcc277dCustomMessage-dev",
-        "Name": "projectreverb2bcc277dCustomMessage-dev",
-        "LambdaExecutionRole": "projectreverb2bcc277dCustomMessage-dev"
-      },
-      "lastPushDirHash": "eyi3mzDrCRXnE9kSBxm8TfZamX0="
+      "lastPushDirHash": "5q0xY/RDSdPrqQ+DQyn8RoM9WTI="
     }
   }
 }

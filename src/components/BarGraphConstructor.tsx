@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, LayoutChangeEvent } from 'react-native';
 import Svg, { Rect, Line, Text } from 'react-native-svg';
 import { formatTime } from '../helpers/_index'
 
@@ -18,20 +18,6 @@ interface Props {
     replaceValues?: boolean;
     maxValues?: number;
 }
-
-/**
- * BarGraph component for visualizing time data across multiple dates
- * 
- * @param {Data[]} data - Array of data points with date and totalMinutes properties
- * @param {string} color - Fill color for the bars
- * @param {number} labelPadding - Space between bars and labels in pixels (default: 5)
- * @param {number} aspectRatio - Height to width ratio for the graph (default: 9/16)
- * @param {number} verticalPadding - Padding at top and bottom in pixels (default: 0)
- * @param {number} horizontalPadding - Padding at left and right in pixels (default: 0)
- * @param {boolean} replaceValues - If true, doesn't fill in gaps between dates (default: false)
- * @param {number} maxValues - Maximum number of values to display (default: 10)
- * @returns {JSX.Element} Bar graph visualization component
- */
 
 export default function BarGraph({ 
     data, 
@@ -215,7 +201,7 @@ export default function BarGraph({
 
     return (
         <View
-            onLayout={event => {
+            onLayout={(event: LayoutChangeEvent) => {
                 setWidth(event.nativeEvent.layout.width);
             }}
             style={limit.length > 0 ? styles.container : styles.container_null}
