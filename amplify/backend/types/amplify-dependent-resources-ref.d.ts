@@ -1,13 +1,15 @@
 export type AmplifyDependentResourcesAttributes = {
+  "analytics": {
+    "app": {
+      "Id": "string",
+      "Region": "string",
+      "appName": "string"
+    }
+  },
   "auth": {
-    "projectreverbcb26f526": {
-      "AppClientID": "string",
-      "AppClientIDWeb": "string",
+    "app": {
       "IdentityPoolId": "string",
-      "IdentityPoolName": "string",
-      "UserPoolArn": "string",
-      "UserPoolId": "string",
-      "UserPoolName": "string"
+      "IdentityPoolName": "string"
     }
   }
 }

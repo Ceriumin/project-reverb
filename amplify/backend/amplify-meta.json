@@ -1,57 +1,60 @@
 {
   "providers": {
     "awscloudformation": {
-      "AuthRoleName": "amplify-projectreverb-dev-13f43-authRole",
-      "UnauthRoleArn": "arn:aws:iam::864981728637:role/amplify-projectreverb-dev-13f43-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::864981728637:role/amplify-projectreverb-dev-13f43-authRole",
+      "AuthRoleName": "amplify-app-dev-f3689-authRole",
+      "UnauthRoleArn": "arn:aws:iam::864981728637:role/amplify-app-dev-f3689-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::864981728637:role/amplify-app-dev-f3689-authRole",
       "Region": "eu-west-2",
-      "DeploymentBucketName": "amplify-projectreverb-dev-13f43-deployment",
-      "UnauthRoleName": "amplify-projectreverb-dev-13f43-unauthRole",
-      "StackName": "amplify-projectreverb-dev-13f43",
-      "StackId": "arn:aws:cloudformation:eu-west-2:864981728637:stack/amplify-projectreverb-dev-13f43/d1088cb0-0501-11f0-8443-02368bffe909",
-      "AmplifyAppId": "d3v7rz8mfru8bz"
+      "DeploymentBucketName": "amplify-app-dev-f3689-deployment",
+      "UnauthRoleName": "amplify-app-dev-f3689-unauthRole",
+      "StackName": "amplify-app-dev-f3689",
+      "StackId": "arn:aws:cloudformation:eu-west-2:864981728637:stack/amplify-app-dev-f3689/873ac820-0667-11f0-a75a-064bca3a2dad",
+      "AmplifyAppId": "d2ajt8lh1hxvla"
     }
   },
   "auth": {
-    "projectreverbcb26f526": {
-      "customAuth": false,
+    "app": {
+      "service": "Cognito",
+      "serviceType": "managed",
+      "providerPlugin": "awscloudformation",
       "dependsOn": [],
       "frontendAuthConfig": {
-        "mfaConfiguration": "OFF",
-        "mfaTypes": [
-          "SMS"
-        ],
+        "socialProviders": [],
+        "usernameAttributes": [],
+        "signupAttributes": [],
         "passwordProtectionSettings": {
-          "passwordPolicyMinLength": 8,
           "passwordPolicyCharacters": []
         },
-        "signupAttributes": [
-          "EMAIL"
-        ],
-        "socialProviders": [],
-        "usernameAttributes": [
-          "EMAIL"
-        ],
-        "verificationMechanisms": [
-          "EMAIL"
-        ]
+        "mfaTypes": [],
+        "verificationMechanisms": []
       },
-      "providerPlugin": "awscloudformation",
-      "service": "Cognito",
-      "output": {
-        "UserPoolId": "eu-west-2_XPS3vY8qy",
-        "AppClientIDWeb": "o3mli09sgd2ldlme94elmc1ln",
-        "AppClientID": "1be72cbbmlggub4g0o63ofeovo",
-        "IdentityPoolId": "eu-west-2:8c9d95bf-8b54-4037-997e-9f25383ae204",
-        "UserPoolArn": "arn:aws:cognito-idp:eu-west-2:864981728637:userpool/eu-west-2_XPS3vY8qy",
-        "IdentityPoolName": "projectreverbcb26f526_identitypool_cb26f526__dev",
-        "UserPoolName": "projectreverbcb26f526_userpool_cb26f526"
-      },
-      "lastPushTimeStamp": "2025-03-20T22:41:57.293Z",
       "providerMetadata": {
-        "s3TemplateURL": "https://s3.amazonaws.com/amplify-projectreverb-dev-13f43-deployment/amplify-cfn-templates/auth/projectreverbcb26f526-cloudformation-template.json",
-        "logicalId": "authprojectreverbcb26f526"
-      }
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-app-dev-f3689-deployment/amplify-cfn-templates/auth/app-cloudformation-template.json",
+        "logicalId": "authapp"
+      },
+      "lastPushTimeStamp": "2025-03-21T15:21:24.318Z",
+      "output": {
+        "IdentityPoolId": "eu-west-2:07fc0084-8750-455b-82c6-ab62bdc4e9d9",
+        "IdentityPoolName": "app_identitypool_19f1f075__dev"
+      },
+      "lastPushDirHash": "dASH1f7Pki+VRIr4Gz9tTPTpWqI="
+    }
+  },
+  "analytics": {
+    "app": {
+      "service": "Pinpoint",
+      "providerPlugin": "awscloudformation",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-app-dev-f3689-deployment/amplify-cfn-templates/analytics/pinpoint-cloudformation-template.json",
+        "logicalId": "analyticsapp"
+      },
+      "lastPushTimeStamp": "2025-03-21T15:21:24.571Z",
+      "output": {
+        "appName": "app-dev",
+        "Region": "eu-west-2",
+        "Id": "3d5a428e8e694be696698af1bbc7a246"
+      },
+      "lastPushDirHash": "3K5qjfmFFf/86aFO4RKIMJXVkzE="
     }
   }
 }
