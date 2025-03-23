@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, LayoutChangeEvent } from 'react-native';
 import Svg, { Rect, Line, Text } from 'react-native-svg';
-import { formatTime } from '../helpers/_index'
+import { formatTime } from '@utils/_index'
 
 interface Data {
     date: string;

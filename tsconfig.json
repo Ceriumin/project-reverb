@@ -6,8 +6,9 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"],
-      "@components/*": ["src/components/*"],
+      "@components/*": ["src/components/"],
       "@screens/*": ["src/screens/*"],
+      "@context/*": ["src/context/*"],
       "@navigation/*": ["src/navigation/*"],
       "@services/*": ["src/services/*"],
       "@hooks/*": ["src/hooks/*"],

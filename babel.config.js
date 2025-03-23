@@ -1,10 +1,10 @@
 module.exports = {
-  presets: ['module:metro-react-native-babel-preset'],
+  presets: ['module:@react-native/babel-preset'],
   plugins: [
     [
       'module-resolver',
       {
-        root: ['./'],
+        root: ['./src'],
         extensions: [
           '.ios.ts',
           '.android.ts',
@@ -21,6 +21,7 @@ module.exports = {
           '@screens': './src/screens',
           '@utils': './src/utils',
           '@assets': './assets',
+          '@context': './src/context',
           // Add more aliases as needed
         },
       },
