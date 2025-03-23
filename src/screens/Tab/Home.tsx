@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import GraphWrapper from '../../components/GraphWrapper';
+import GraphWrapper from '@components/GraphWrapper';
 import { processPlaytimeData } from '../../helpers/session-data';
 
 export default function HomeScreen() {

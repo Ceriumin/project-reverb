@@ -11,7 +11,7 @@ export default function AppNavigator() {
   const { user } = useAuth();
   
   return (
-    <Stack.Navigator initialRouteName={user ? "Main" : "Auth"}>
+    <Stack.Navigator initialRouteName={"Main"}>
       <Stack.Screen name="Auth" component={AuthNavigator} options={
           { headerShown: false }
         }/>
