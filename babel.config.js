@@ -17,12 +17,13 @@ module.exports = {
           '.json',
         ],
         alias: {
-          '@components': './src/components',
+          '@components': './src/components/_index.tsx',
           '@screens': './src/screens',
           '@utils': './src/utils',
           '@assets': './assets',
           '@context': './src/context',
-          // Add more aliases as needed
+          '@constants': './src/constants',
+          '@': './src',
         },
       },
     ],

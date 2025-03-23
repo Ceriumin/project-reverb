@@ -5,19 +5,13 @@
     "esModuleInterop": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"],
-      "@components/*": ["src/components/"],
+      "@components/*": ["src/components/*"],
       "@screens/*": ["src/screens/*"],
-      "@context/*": ["src/context/*"],
-      "@navigation/*": ["src/navigation/*"],
-      "@services/*": ["src/services/*"],
-      "@hooks/*": ["src/hooks/*"],
       "@utils/*": ["src/utils/*"],
-      "@assets/*": ["src/assets/*"],
+      "@assets/*": ["assets/*"],
+      "@context/*": ["src/context/*"],
       "@constants/*": ["src/constants/*"],
-      "@styles/*": ["src/styles/*"],
-      "@store/*": ["src/store/*"],
-      "@types/*": ["src/types/*"]
+      "@/*": ["src/*"]  // Add this line to support @/utils format
     }
   }
 }

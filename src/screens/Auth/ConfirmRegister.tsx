@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, Alert } from 'react-native';
-import { AuthStackParameters } from '../../constants/_index';
+import { AuthStackParameters } from '@/constants/_index';
 import { useNavigation, useRoute, RouteProp, NavigationProp } from '@react-navigation/native';
 import { useAuth } from '../../hooks/useAuth';
 

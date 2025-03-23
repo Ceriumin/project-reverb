@@ -1,5 +1,5 @@
 import React from 'react';
-import * as Screens from '../screens/Auth/_index';
+import * as Screens from '@/screens/Auth/_index';
 import { createStackNavigator } from '@react-navigation/stack';
 
 const Stack = createStackNavigator();

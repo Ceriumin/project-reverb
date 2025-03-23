@@ -1,5 +1,5 @@
 import React from 'react';
-import { useAuth } from '../hooks/useAuth';
+import { useAuth } from '@/hooks/useAuth';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import MainNavigator from './MainNavigator';

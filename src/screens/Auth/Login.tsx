@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
-import { RootStackParameters, AuthStackParameters } from '../../constants/_index';
-import { useAuth } from '../../hooks/useAuth';
-import { Alert } from 'react-native';
+import { RootStackParameters, AuthStackParameters } from '@/constants/_index';
+import { useAuth } from '@/hooks/useAuth';
 
 import Button from '../../components/ActionButton';
 import InputField from '../../components/InputField';
