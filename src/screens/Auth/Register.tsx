@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 
-import Button from '../../components/ActionButton';
-import InputField from '../../components/InputField';
-
-import { useAuth } from '../../hooks/useAuth';
+import { Button, InputField } from '@/components/_index';
+import { useAuth } from '@/hooks/useAuth';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
-import { AuthStackParameters } from '../../constants/_index';
+import { AuthStackParameters } from '@/constants/_index';
 
 export default function RegisterScreen () {
     const [email, setEmail] = useState('');
