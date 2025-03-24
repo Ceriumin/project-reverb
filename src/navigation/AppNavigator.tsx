@@ -1,7 +1,7 @@
 import React from 'react';
-import { useAuth } from '@/hooks/useAuth';
 import { createStackNavigator } from '@react-navigation/stack';
 
+import { useAuth } from '@/hooks/useAuth';
 import MainNavigator from './MainNavigator';
 import AuthNavigator from './AuthNavigator';
 

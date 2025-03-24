@@ -1,4 +1,3 @@
-import React from 'react';
 import { Home, Profile } from '@/screens/_index';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 

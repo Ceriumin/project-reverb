@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
+import { useColorScheme } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
+
 import { darkTheme, lightTheme } from '@/constants/_index';
 import { AuthProvider } from '@/context/_index';
 import AppNavigator from './AppNavigator'; 
-import { useColorScheme } from 'react-native';
 
 //Application entry point
 export default function Navigation() {
